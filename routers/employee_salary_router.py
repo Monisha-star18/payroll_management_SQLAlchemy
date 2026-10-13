@@ -6,5 +6,5 @@ router = APIRouter(prefix="/api/employee_salary")
 
 #get all the employee salary deatiles 
 @router.get('/')
-async def get_all_employee_salary_details():
+def get_all_employee_salary_details():
     return employee_salary_service.get_all_employee_salary()

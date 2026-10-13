@@ -8,7 +8,7 @@ from sqlalchemy.orm import Mapped , mapped_column
 from datetime import date
 from decimal import Decimal
 
-from Table_Model import Base
+from models import Base
 
 class EmployeePayDeatils(Base) :
 
