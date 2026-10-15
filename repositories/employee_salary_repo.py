@@ -1,5 +1,6 @@
+from decimal import Decimal
 from fastapi import HTTPException,Depends
-from sqlalchemy import select
+from sqlalchemy import select,text
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 
@@ -26,7 +27,7 @@ class EmployeeSalaryRepo:
             raise HTTPException(status_code=500, detail=str(er))
         
     #create new employess
-    async def post_employee(self,employee_details,db):
+    async def post_employee(self,employee_details,db:AsyncSession):
         try:
             employee_data = EmployeePayDeatils(**employee_details)
             db.add(employee_data)
@@ -44,7 +45,7 @@ class EmployeeSalaryRepo:
             raise HTTPException(status_code=500, detail=str(er))
 
     #update employee
-    async def put_employee(self,employee_details,db):
+    async def put_employee(self,employee_details,db:AsyncSession):
         try:
             employee = await db.get(EmployeePayDeatils,employee_details["employee_id"])
 
@@ -67,7 +68,7 @@ class EmployeeSalaryRepo:
             raise HTTPException(status_code=500, detail=str(er))
 
     #delete the employee 
-    async def delete_employee(self,employee_id,db):
+    async def delete_employee(self,employee_id: int,db : AsyncSession):
         try:
             employee = await db.get(EmployeePayDeatils,employee_id)
             
@@ -83,8 +84,29 @@ class EmployeeSalaryRepo:
             await db.rollback()
             raise HTTPException(status_code=500, detail=str(er))
 
+    #Increment by percentage 
+    async def increase_salary(self, employee_id: int, percent: float, db: AsyncSession):
+        try:
+            employee = await db.get(EmployeePayDeatils, employee_id)
+
+            if employee is None:
+                return {"message":f"The id {employee_id} dont exists "}                              
+
+            await db.execute(
+                text("CALL sp_increase_salary(:employee_id, :percent)"),
+                {"employee_id": employee_id, "percent": Decimal(str(percent))},
+            )
+
+            await db.commit()
+            await db.refresh(employee)                   
+            return {"message":"Increment updates","deatils":employee}
+
+        except SQLAlchemyError as er:
+            await db.rollback()
+            raise HTTPException(status_code=500, detail=str(er))
 
 
-            
+
+
                 
         

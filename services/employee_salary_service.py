@@ -60,7 +60,11 @@ class EmployeeSalaryService:
     async def remove_employee(self,employee_id,db):
          return await self.employee_repository.delete_employee(employee_id,db)
          
-    
+    #increament
+    async def increase_salary(self, employee_id: int, increment_details, db: AsyncSession) -> EmployeePayDeatils:
+        
+        return await self.employee_repository.increase_salary(employee_id, increment_details.percent, db)
+
 
 #instance of the Employee Salary Service
 employee_salary_service = EmployeeSalaryService()

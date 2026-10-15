@@ -29,4 +29,8 @@ class UpdateEmployee(Base):
     model_config = ConfigDict(extra='forbid')
 
     basic_salary : float = Field(**BASIC_SALARY)
-    
+
+class IncrementRequest(Base):
+    model_config = ConfigDict(extra='forbid')
+
+    percent : float = Field(gt=0,le=100) 

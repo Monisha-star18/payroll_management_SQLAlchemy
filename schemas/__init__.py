@@ -2,3 +2,4 @@
 from .employee_salary_schema import EmployeeSalaryResponse
 from .employee_salary_schema import CreateEmployee
 from .employee_salary_schema import UpdateEmployee
+from .employee_salary_schema import IncrementRequest
