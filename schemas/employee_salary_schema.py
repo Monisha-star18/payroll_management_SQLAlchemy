@@ -23,3 +23,10 @@ class CreateEmployee(Base):
 
     employee_id :int = Field(ge=1)
     basic_salary : float = Field(**BASIC_SALARY)
+
+
+class UpdateEmployee(Base):
+    model_config = ConfigDict(extra='forbid')
+
+    basic_salary : float = Field(**BASIC_SALARY)
+    
