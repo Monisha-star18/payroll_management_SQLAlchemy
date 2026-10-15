@@ -90,7 +90,8 @@ class EmployeeSalaryRepo:
             employee = await db.get(EmployeePayDeatils, employee_id)
 
             if employee is None:
-                return {"message":f"The id {employee_id} dont exists "}                              
+                return {"message":f"The id {employee_id} dont exists "}  
+                           
 
             await db.execute(
                 text("CALL sp_increase_salary(:employee_id, :percent)"),
