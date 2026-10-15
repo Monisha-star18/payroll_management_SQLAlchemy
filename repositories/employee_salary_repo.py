@@ -1,8 +1,7 @@
 from fastapi import HTTPException,Depends
 from sqlalchemy import select
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
 
-from database.connection import SessionLocal,get_session
 from models import EmployeePayDeatils
 
 class EmployeeSalaryRepo:
@@ -10,7 +9,7 @@ class EmployeeSalaryRepo:
     def __init__(self):
         pass
 
-    async def fetch_all_employee_salary(self,db:Session = Depends(get_session)):
+    async def fetch_all_employee_salary(self,db:AsyncSession):
 
         try:
             

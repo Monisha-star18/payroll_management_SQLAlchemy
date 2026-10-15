@@ -28,9 +28,5 @@ SessionLocal = async_sessionmaker( bind=engine ,
 
 #dependecy creation 
 async def get_session():
-    session = SessionLocal()
-
-    try:
+    async with SessionLocal() as session :
         yield session
-    finally:
-        session.close()
