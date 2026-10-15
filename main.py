@@ -6,8 +6,7 @@ app=FastAPI(title="Employee Payroll Management")
 
 app.include_router(employee_salary_router)
 
-router = APIRouter()
 
-@router.get('/')
+@app.get('/')
 async def welcome():
     return {"message" : "Welcom to the Employee Payroll Management"}

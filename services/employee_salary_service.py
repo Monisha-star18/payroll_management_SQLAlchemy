@@ -10,8 +10,8 @@ class EmployeeSalaryService:
         self.employee_repository=EmployeeSalaryRepo()
         
 
-    def get_all_employee(self):
-        return self.employee_repository.fetch_all_employee_salary()
+    async def get_all_employee(self):
+        return await self.employee_repository.fetch_all_employee_salary()
          
 
 #instance of the Employee Salary Service

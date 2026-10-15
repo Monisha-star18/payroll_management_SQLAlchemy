@@ -1,7 +1,13 @@
+import asyncio
 from sqlalchemy import text
 from database import engine
 
-with engine.connect() as connection :
-    result = connection.execute(text("SELECT 1"))
-    print("CONNECTED! , RESULT : ",result.scalar())
+async def test_connection():
+    async with engine.connect() as connection :
+        result = await connection.execute(text("SELECT 1"))
+        print("CONNECTED! , RESULT : ",result.scalar())
 
+    await engine.dispose()
+
+if __name__ == "__main__":
+    asyncio.run(test_connection())

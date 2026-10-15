@@ -1,7 +1,8 @@
-from fastapi import HTTPException
+from fastapi import HTTPException,Depends
 from sqlalchemy import select
+from sqlalchemy.orm import Session
 
-from database.connection import SessionLocal
+from database.connection import SessionLocal,get_session
 from models import EmployeePayDeatils
 
 class EmployeeSalaryRepo:
@@ -9,18 +10,17 @@ class EmployeeSalaryRepo:
     def __init__(self):
         pass
 
-    def fetch_all_employee_salary(self):
+    async def fetch_all_employee_salary(self,db:Session = Depends(get_session)):
 
         try:
-            with SessionLocal() as session:
+            
+            stmt = select(EmployeePayDeatils)
+            result = (await db.scalars(stmt)).all()
 
-                stmt = select(EmployeePayDeatils)
-                result = session.scalars(stmt).all()
+            if result:
+                return result
 
-                if result:
-                    return result
-
-                return {"message":"The table is empty"}
+            return {"message":"The table is empty"}
         
         except Exception as er :
             raise HTTPException ( status_code=500, detail=str(er))
