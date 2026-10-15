@@ -3,6 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from repositories.employee_salary_repo import EmployeeSalaryRepo
 from services.payroll_services import PayrollService
+from models import EmployeePayDeatils
 
 class EmployeeSalaryService:
 
@@ -11,7 +12,7 @@ class EmployeeSalaryService:
         self.employee_repository=EmployeeSalaryRepo()
         
 
-    async def get_all_employee(self,db:AsyncSession):
+    async def get_all_employee(self,db:AsyncSession)->list[EmployeePayDeatils]:
         return await self.employee_repository.fetch_all_employee_salary(db)
          
 

@@ -9,7 +9,7 @@ class EmployeeSalaryRepo:
     def __init__(self):
         pass
 
-    async def fetch_all_employee_salary(self,db:AsyncSession):
+    async def fetch_all_employee_salary(self,db:AsyncSession)-> list[EmployeePayDeatils]:
 
         try:
             

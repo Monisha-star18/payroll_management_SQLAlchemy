@@ -1,1 +1,0 @@
-CREATE DATABASE payroll_management_db;

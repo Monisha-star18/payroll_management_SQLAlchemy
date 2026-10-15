@@ -1,8 +1,9 @@
 import os 
+from collections.abc import AsyncGenerator
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.asyncio import create_async_engine , async_sessionmaker
+from sqlalchemy.ext.asyncio import create_async_engine , async_sessionmaker,AsyncSession
 
 load_dotenv()
 
@@ -27,6 +28,6 @@ SessionLocal = async_sessionmaker( bind=engine ,
                         )
 
 #dependecy creation 
-async def get_session():
+async def get_session()-> AsyncGenerator[AsyncSession,None]:
     async with SessionLocal() as session :
         yield session
