@@ -1,6 +1,5 @@
 import os 
 from dotenv import load_dotenv
-from fastapi import HTTPException
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 load_dotenv()
@@ -8,8 +7,7 @@ load_dotenv()
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 if not DATABASE_URL :
-    raise HTTPException ( status_code= 500 , 
-                        detail='The database connection failed as not Database URL')
+    raise RuntimeError("DATABASE_URL is not set. Check your .env file.")
 
 #create a new engine 
 engine = create_engine ( DATABASE_URL , 
