@@ -20,11 +20,11 @@ class EmployeeSalaryService:
         #change the object to dict
         employee_deatils = employee_salary_deatils.model_dump()
 
-        basic_salary = employee_salary_deatils["basic_salary"]
+        basic_salary = employee_deatils["basic_salary"]
 
-        da = self.payroll_services(basic_salary)
-        pf=self.payroll_services(basic_salary)
-        gross_salary=self.payroll_services(basic_salary)
+        da = self.payroll_services.calculate_da(basic_salary)
+        pf=self.payroll_services.calculate_pf(basic_salary)
+        gross_salary=self.payroll_services.calculate_gross_salary(basic_salary)
 
         salary_deatils = {"da":da , 
                           "pf":pf,
