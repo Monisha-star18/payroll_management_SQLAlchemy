@@ -11,7 +11,7 @@ class EmployeeSalaryService:
         
 
     def get_all_employee(self):
-        self.employee_repository.fetch_all_employee_salary()
+        return self.employee_repository.fetch_all_employee_salary()
          
 
 #instance of the Employee Salary Service
