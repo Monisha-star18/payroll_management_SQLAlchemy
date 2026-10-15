@@ -1,2 +1,3 @@
 
-from employee_salary_schema import EmployeeSalaryResponse
+from .employee_salary_schema import EmployeeSalaryResponse
+from .employee_salary_schema import CreateEmployee
