@@ -39,7 +39,7 @@ async def remove_employee_details(employee_id:int = Path(gt=0),
     return await employee_salary_service.remove_employee(employee_id,db)
 
 #increment by percentage
-@router.patch('/{employee_id}/increment')
+@router.post('/{employee_id}/increment')
 async def increase_employee_salary(employee_id: int, 
                                    increment_details: IncrementRequest,
                                     db: AsyncSession = Depends(get_session)):
